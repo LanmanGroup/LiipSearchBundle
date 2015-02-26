@@ -26,6 +26,8 @@ class GoogleXMLSearch
 
     protected $restrictToLabels;
 
+    protected $limitToDomain;
+
     /**
      * @param string $google_api_key Key for Google Project
      * @param string $google_search_key Key for cse search service
@@ -34,13 +36,14 @@ class GoogleXMLSearch
      * @param array $restrict_to_labels If search results should be restricted to one or more labels, specify the labels
      * @return \Liip\SearchBundle\Google\GoogleXMLSearch
      */
-    public function __construct($google_api_key, $google_search_key, $google_search_api_url, $restrict_to_site, $restrict_to_labels)
+    public function __construct($google_api_key, $google_search_key, $google_search_api_url, $restrict_to_site, $restrict_to_labels, $limit_to_domain)
     {
         $this->googleApiKey = $google_api_key;
         $this->googleSearchKey = $google_search_key;
         $this->googleSearchAPIUrl = $google_search_api_url;
         $this->restrictToSite = $restrict_to_site;
         $this->restrictToLabels = $restrict_to_labels;
+        $this->limitToDomain = $limit_to_domain;
     }
 
     /**
@@ -146,7 +149,7 @@ class GoogleXMLSearch
         if ($lang !== false) {
             $params['lr'] = 'lang_' . $lang;    // Restricts the search to documents written in a particular language
             $params['hl'] =  $lang;             // Sets the user interface language. Google recommends explicitly
-                                                //   setting also for xml queries
+            //   setting also for xml queries
         }
 
         if ($this->restrictToSite) {
@@ -158,6 +161,10 @@ class GoogleXMLSearch
         //        $encodedQuery .= '+more&3' . $label;
         //    }
         //}
+
+        if($this->limitToDomain === true) {
+            $params['siteSearch'] = $_SERVER["SERVER_NAME"];
+        }
 
         // The parameters don't have to be escaped (eg. ":" should remain as is)
         $queryString = '?' . urldecode(http_build_query($params)) . '&q=' . $encodedQuery;

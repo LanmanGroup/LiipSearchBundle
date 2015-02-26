@@ -16,13 +16,13 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 /**
-* This class contains the configuration information for the bundle
-*
-* This information is solely responsible for how the different configuration
-* sections are normalized, and merged.
-*
-* @author David Buchmann
-*/
+ * This class contains the configuration information for the bundle
+ *
+ * This information is solely responsible for how the different configuration
+ * sections are normalized, and merged.
+ *
+ * @author David Buchmann
+ */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -42,8 +42,9 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('search_key')->isRequired()->end()
                         ->scalarNode('search_api_url')->defaultValue('https://www.googleapis.com/customsearch/v1')->end()
                         ->scalarNode('api_key')->isRequired()->end()
-                        ->scalarNode('restrict_to_site')->defaultValue('')->end()
+                        ->scalarNode('restrict_to_site')->end()
                         ->scalarNode('restrict_to_labels')->defaultValue('')->end()
+                        ->scalarNode('limit_to_domain')->defaultValue(true)->end()
                     ->end()
                 ->end()
                 ->scalarNode('search_route')->defaultValue('liip_search')->end()
