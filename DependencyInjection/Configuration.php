@@ -42,7 +42,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('search_key')->isRequired()->end()
                         ->scalarNode('search_api_url')->defaultValue('https://www.googleapis.com/customsearch/v1')->end()
                         ->scalarNode('api_key')->isRequired()->end()
-                        ->scalarNode('restrict_to_site')->end()
+                        ->scalarNode('restrict_to_site')->defaultValue('')->end()
                         ->scalarNode('restrict_to_labels')->defaultValue('')->end()
                         ->scalarNode('limit_to_domain')->defaultValue(true)->end()
                     ->end()
