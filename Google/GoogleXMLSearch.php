@@ -163,13 +163,15 @@ class GoogleXMLSearch
         //}
 
         if($this->limitToDomain === true) {
-            $params['siteSearch'] = $_SERVER["SERVER_NAME"];
+            //$params['siteSearch'] = $_SERVER["SERVER_NAME"];
+            $params['siteSearch'] = str_ireplace('local', 'it', $_SERVER["SERVER_NAME"]);
         }
 
         // The parameters don't have to be escaped (eg. ":" should remain as is)
         $queryString = '?' . urldecode(http_build_query($params)) . '&q=' . $encodedQuery;
 
         $url = $this->googleSearchAPIUrl . $queryString;
+        echo $url;
         return $url;
     }
 
