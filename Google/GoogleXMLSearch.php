@@ -91,13 +91,17 @@ class GoogleXMLSearch
      * @throws \Exception
      * @return array of search result information and items
      */
-    public function getSearchResults($query, $lang, $start, $limit)
+    public function getSearchResults($query, $lang, $start, $limit, $personalizedGoogleSearchKey = null)
     {
         if (empty($query)) {
             return array(
                 'items' => array(),
                 'information' => array(),
             );
+        }
+
+        if($personalizedGoogleSearchKey) {
+            $this->googleSearchKey = $personalizedGoogleSearchKey;
         }
 
         $url = $this->getRequestUrl($query, $lang, $start, $limit);
